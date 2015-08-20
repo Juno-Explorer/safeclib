@@ -164,9 +164,10 @@ int main()
     }
 
     std_ind = memcmp(mem1, mem2, LEN*2);
-    if (ind != std_ind) {
-        debug_printf("%s %u  Ind=%d  rc=%u \n",
-                     __FUNCTION__, __LINE__,  ind, rc );
+    // memcmp is only guaranteed to return <0,0,>0
+    if ((( std_ind > 0) && (ind <= 0)) || (( std_ind < 0) && (ind >= 0)) || (( std_ind == 0) && (ind != 0)))  {
+        debug_printf("%s %u  Ind=%d std_ind=%d rc=%u \n",
+                     __FUNCTION__, __LINE__,  ind, std_ind, rc );
     }
 
 /*--------------------------------------------------*/
